@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hoteles','HotelController@index' ) ->name('hotel.index');
+

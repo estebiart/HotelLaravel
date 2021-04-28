@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\Foto;
 use App\Models\FotoHotel;
+use App\Models\Categorias;
+use App\Models\Calificacion;
+use App\Models\CalificacionHotel;
 class HotelController extends Controller
 {
   
@@ -25,7 +28,7 @@ class HotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function organizar()
     {
         //
     }
@@ -62,6 +65,7 @@ class HotelController extends Controller
     public function show($id)
     {
         //
+        return Hotel::find($id);
     }
 
     /**
@@ -70,7 +74,7 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function filtar($id)
     {
         //
     }
@@ -85,6 +89,9 @@ class HotelController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $hotel = Hotel::find($id);
+        $hotel->update($request->all());
+        return ['updated' => true];
     }
 
     /**
@@ -96,5 +103,24 @@ class HotelController extends Controller
     public function destroy($id)
     {
         //
+        Hotel::destroy($id);
+        return ['deleted' => true];
     }
+
+    public function searchCategory($name)
+    {
+        $category= Categorias::SearchCategory($name)->first();
+        $articles = $category->articles
+    }
+    public function searchCalification($name)
+    {
+        $category= Calificacion::SearchCalification($name)->first();
+        $articles = $category->articles
+    }
+    public function findHotelPrecio($name)
+    {
+        $this->user = User::findOrFail($route->getParameter('users'));
+        User::orderBy('id','DESC')
+    }
+    
 }

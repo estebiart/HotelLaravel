@@ -19,4 +19,9 @@ class Calificacion extends Model
     public function hotel(){
         return $this-> belongsTo(Hotel::class, 'id');
     }
+        
+    public function scopeSearchCalification($query,$name)
+    {
+        return $query->where('name', '=', $name);
+    }
 }

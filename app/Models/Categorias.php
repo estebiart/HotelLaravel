@@ -14,6 +14,9 @@ class Categorias extends Model
 
     ];
     
-
+    public function scopeSearchCategory($query,$name)
+    {
+        return $query->where('name', '=', $name);
+    }
     public $timesatamps =false;
 }

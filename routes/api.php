@@ -20,5 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/hoteles', [HotelController::class, 'getAll']);
+Route::get('/hoteles/Categoria/{name}', [HotelController::class, 'getAll']);
+Route::get('/hoteles/Calificacion/{name}', [HotelController::class, 'getAll']);
 
 
