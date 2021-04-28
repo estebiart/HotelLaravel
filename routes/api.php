@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HotelController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/hoteles','HotelController@index' ) ->name('hotel.index');
+
+
+Route::get('/hoteles', [HotelController::class, 'getAll']);
+
+

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Hotel extends Migration
+class CreateFotoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class Hotel extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('hotel', function (Blueprint $table) {
+        Schema::create('Foto', function (Blueprint $table) {
             $table->id();
-            $table->string('HotelName');
-            $table->string('Precio');
-            $table->integer('IDCategoria')->index();
-
+            $table->string('Dirrecion');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +27,6 @@ class Hotel extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('Foto');
     }
 }

@@ -3,21 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Hotel;
-use App\Models\Foto;
-use App\Models\FotoHotel;
-class HotelController extends Controller
+
+class CategoriasController extends Controller
 {
-  
-    public function getAll(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         //
-        if($request->isJson()){
-            return Hotel::all();
-        } else{
-            return response()->json(['error' => 'formato invalido'],status:406);
-        }
-       
     }
 
     /**
@@ -39,18 +35,6 @@ class HotelController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->isJson()){
-            $data=request()->except('_token');
-            if($request ->hasFile('Dirrecion ')){
-                $data['Dirrecion ']=$request->file('Dirrecion ')->store('uploads','public');
-            }
-            Hotel::insert($data);
-            Foto::insert($data['Dirrecion ']);
-            FotoHotel::insert($data['id']);
-        } else{
-            return response()->json(['error' => 'formato invalido'],status:406);
-        }
-
     }
 
     /**
