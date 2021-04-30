@@ -10,8 +10,7 @@ class Calificacion extends Model
     use HasFactory;
     public $table ="Calificacion ";
     protected $fillable = [
-        'CalificacionID' , 'CalificacionHotel','Comentario '
-
+        'puntaje','comentarios','IDHotel','IDUser'
     ];
     
     /// pertenece a calificacionhotle
@@ -20,8 +19,6 @@ class Calificacion extends Model
         return $this-> belongsTo(Hotel::class, 'id');
     }
         
-    public function scopeSearchCalification($query,$name)
-    {
-        return $query->where('name', '=', $name);
-    }
+
+    public $timesatamps =false;
 }

@@ -15,11 +15,17 @@ class CreateFotoTable extends Migration
     {
         Schema::create('Foto', function (Blueprint $table) {
             $table->id();
-            $table->string('Dirrecion');
+            $table->string('nombre');
+            $table->string('formato');
+            $table->string('hotel_id');
+            $table->string('Url');
             $table->timestamps();
         });
     }
-
+    public function hotel()
+    {
+    	return $this->belongsTo('App\Hotel');
+    }
     /**
      * Reverse the migrations.
      *

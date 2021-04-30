@@ -23,12 +23,19 @@ class CreateHotelesTable extends Migration
         Schema::create('Hoteles', function (Blueprint $table) {
             $table->id();
             $table->string('HotelName');
-            $table->string('Precio');
-            $table->unsignedBigInteger('IDCategoria');
+            $table->integer('Precio');
+            $table->unsignedBigInteger('IDCategoria')->nullable() ->default(1);
             $table->foreign('IDCategoria')->references('id')->on('Categorias');
-            $table->timestamps();
+           
+           
+           
+         
 
         });
+    }
+    public function fotos()
+    {
+        return $this->hasMany('App\Foto');
     }
 
     /**
@@ -38,7 +45,7 @@ class CreateHotelesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hoteles');
+        Schema::dropIfExists('Hoteles');
         Schema::dropIfExists('Categorias');
     }
 }

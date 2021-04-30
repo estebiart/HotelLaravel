@@ -10,7 +10,7 @@ class Foto extends Model
     use HasFactory;
     public $table ="Foto";
     protected $fillable = [
-        'FotoID', 'Dirrecion '
+        'nombre','formato','hotel_id'
 
     ];
     public $timesatamps =false;

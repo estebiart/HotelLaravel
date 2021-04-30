@@ -5,33 +5,50 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\Foto;
-use App\Models\FotoHotel;
 use App\Models\Categorias;
 use App\Models\Calificacion;
-use App\Models\CalificacionHotel;
+
+
 class HotelController extends Controller
 {
   
     public function getAll(Request $request)
     {
-        //
+       
         if($request->isJson()){
-            return Hotel::all();
+            
+        $buscar = $request->get('buscarpor');
+
+        $tipo = $request->get('tipo');
+
+        $hotel = Hotel::buscarpor( $buscar,$tipo);
+
+   
+           
         } else{
             return response()->json(['error' => 'formato invalido'],status:406);
         }
        
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function organizar()
+    public function filtrar($filtro,$tipo)
     {
-        //
+        if($request->isJson()){
+            
+            // filtro tabla que servira de filtro
+    
+         // tipo si ascendente o descendente
+    
+            $hotel = Hotel::join('calificacion', 'hoteles.id', '=', 'calificacion.IDUser') ->buscarpor( $filtro,$tipo);
+    
+     
+               return  $hotel;// Hotel::all();
+               
+            } else{
+                return response()->json(['error' => 'formato invalido'],status:406);
+            }
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -44,12 +61,33 @@ class HotelController extends Controller
         //
         if($request->isJson()){
             $data=request()->except('_token');
-            if($request ->hasFile('Dirrecion ')){
-                $data['Dirrecion ']=$request->file('Dirrecion ')->store('uploads','public');
+            if($request ->hasFile('img')){
+                $data['img']=$request->file('img')->store('uploads','public');
             }
-            Hotel::insert($data);
-            Foto::insert($data['Dirrecion ']);
-            FotoHotel::insert($data['id']);
+        $hotel= new Hotel;
+        $hotel->HotelName = $request->HotelName;
+        $hotel->Precio = $request->Precio;
+        $hotel->save();
+ 
+        $this->validate($request, [
+ 
+            'HotelName' => 'required',
+            'img.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+ 
+        ]);        
+ 
+        $files = $request->file('img');
+
+        foreach($files as $file){
+            $foto= new Foto;
+            $foto->nombre = $file->nombre;
+            $foto->hotel_id = $file->id;
+            $foto->formato = $file->formato;
+            $foto->Url= $file->Url;
+            $foto->save();
+      
+        }  
+           
         } else{
             return response()->json(['error' => 'formato invalido'],status:406);
         }
@@ -68,16 +106,7 @@ class HotelController extends Controller
         return Hotel::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function filtar($id)
-    {
-        //
-    }
+ 
 
     /**
      * Update the specified resource in storage.
@@ -107,20 +136,5 @@ class HotelController extends Controller
         return ['deleted' => true];
     }
 
-    public function searchCategory($name)
-    {
-        $category= Categorias::SearchCategory($name)->first();
-        $articles = $category->articles
-    }
-    public function searchCalification($name)
-    {
-        $category= Calificacion::SearchCalification($name)->first();
-        $articles = $category->articles
-    }
-    public function findHotelPrecio($name)
-    {
-        $this->user = User::findOrFail($route->getParameter('users'));
-        User::orderBy('id','DESC')
-    }
-    
+  
 }

@@ -10,13 +10,10 @@ class Categorias extends Model
     use HasFactory;
     public $table ="Categorias";
     protected $fillable = [
-        'CategoriaID ', 'CategoriaDescripcion'
+         'CategoriaDescripcion' 
 
     ];
     
-    public function scopeSearchCategory($query,$name)
-    {
-        return $query->where('name', '=', $name);
-    }
+ 
     public $timesatamps =false;
 }
