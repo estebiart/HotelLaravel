@@ -14,13 +14,13 @@ class CreateCalificacionTable extends Migration
     public function up()
     {
         Schema::create('calificacion', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_calificacion');
             $table->integer('puntaje');
             $table->string('comentarios');
             $table->unsignedBigInteger('IDHotel')->nullable() ->default(1);
-            $table->foreign('IDHotel')->references('id')->on('Hoteles');
+            $table->foreign('IDHotel')->references('id_hotel')->on('Hoteles');
             $table->unsignedBigInteger('IDUser')->nullable() ->default(1);
-            $table->foreign('IDUser')->references('id')->on('users');
+            $table->foreign('IDUser')->references('id_user')->on('users');
             $table->timestamps();
         });
     }

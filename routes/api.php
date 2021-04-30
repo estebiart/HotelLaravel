@@ -21,9 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/hoteles', [HotelController::class, 'getAll']);
-Route::get('/hoteles/{id}', [HotelController::class,'show']);
-Route::delete('/hoteles/{id}', [HotelController::class,'destroy']);
-Route::put('/hoteles/{id}', [HotelController::class,'update']);
-Route::get('/hoteles/{filtro,tipo}', [HotelController::class,'filtrar']);
+Route::get('/hoteles/?{id}', [HotelController::class,'show']);
+Route::delete('/hoteles/?{id}', [HotelController::class,'destroy']);
+Route::put('/hoteles/?{id}', [HotelController::class,'update']);
+Route::get('/hoteles/?{filtro,tipo}', [HotelController::class,'filtrar']);
 
 Route::post('/hoteles', [HotelController::class, 'store']);

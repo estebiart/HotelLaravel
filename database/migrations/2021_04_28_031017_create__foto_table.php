@@ -14,9 +14,7 @@ class CreateFotoTable extends Migration
     public function up()
     {
         Schema::create('Foto', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('formato');
+            $table->id('id_foto');
             $table->string('hotel_id');
             $table->string('Url');
             $table->timestamps();

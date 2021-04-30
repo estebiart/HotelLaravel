@@ -14,18 +14,18 @@ class CreateHotelesTable extends Migration
     public function up()
     {
         Schema::create('Categorias', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_categoria');
             $table->string('CategoriaDescripcion');
             $table->timestamps();
      
 
         });
         Schema::create('Hoteles', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_hotel');
             $table->string('HotelName');
             $table->integer('Precio');
             $table->unsignedBigInteger('IDCategoria')->nullable() ->default(1);
-            $table->foreign('IDCategoria')->references('id')->on('Categorias');
+            $table->foreign('IDCategoria')->references('id_categoria')->on('Categorias');
            
            
            

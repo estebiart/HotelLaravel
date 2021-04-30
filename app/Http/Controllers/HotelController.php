@@ -16,12 +16,9 @@ class HotelController extends Controller
     {
        
         if($request->isJson()){
-            
-        $buscar = $request->get('buscarpor');
+ 
 
-        $tipo = $request->get('tipo');
-
-        $hotel = Hotel::buscarpor( $buscar,$tipo);
+        return Hotel::all();
 
    
            
@@ -30,7 +27,7 @@ class HotelController extends Controller
         }
        
     }
-    public function filtrar($filtro,$tipo)
+    public function filtrar(Request $request,$filtro,$tipo)
     {
         if($request->isJson()){
             
@@ -38,7 +35,7 @@ class HotelController extends Controller
     
          // tipo si ascendente o descendente
     
-            $hotel = Hotel::join('calificacion', 'hoteles.id', '=', 'calificacion.IDUser') ->buscarpor( $filtro,$tipo);
+            $hotel = Hotel::buscarpor($filtro,$tipo);
     
      
                return  $hotel;// Hotel::all();
@@ -81,7 +78,7 @@ class HotelController extends Controller
         foreach($files as $file){
             $foto= new Foto;
             $foto->nombre = $file->nombre;
-            $foto->hotel_id = $file->id;
+            $foto->hotel_id = $file->id_foto;
             $foto->formato = $file->formato;
             $foto->Url= $file->Url;
             $foto->save();
